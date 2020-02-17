@@ -1,11 +1,12 @@
-## My Project
+## Amazon Chime Tools
 
-TODO: Fill this README out!
+# About
 
-Be sure to:
+This repository contains a collection of sample scripts and templates developed for Amazon Chime customers.
 
-* Change the title in this README
-* Edit your repository description on GitHub
+# Tools
+
+- [**CloudWatch Dashboard for Amazon Chime Voice Connector**](dashboard) - This folder includes a CloudFormation template that creates a dashboard of Amazon Chime Voice Connector metrics. A script is also included that will create a dashboard for each of your account's configured voice connectors.
 
 ## License
 
