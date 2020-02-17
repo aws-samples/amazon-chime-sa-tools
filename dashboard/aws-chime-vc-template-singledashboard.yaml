@@ -1,0 +1,29 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+    Creates a default CloudWatch Dashboard for Amazon Chime Voice Connector
+Parameters:
+    VoiceConnectorId:
+            Description: "The ID of the Voice Connector SIP Trunk you would like to monitor. This ID can be found in the Chime console. Only the ID is required, not the FQDN."
+            Type: "String"
+            AllowedPattern: "^[a-zA-Z0-9]*$"
+            MinLength: "1"
+            ConstraintDescription: "Voice Connector ID should be letters and numbers with no spaces or symbols."
+    Region:
+            Type: "String"
+            AllowedValues: 
+               - "us-east-1"
+               - "us-west-2"
+            Description: "Please select either us-east-1 or us-west-2"
+            
+Resources:
+  Dashboard:
+    Type: "AWS::CloudWatch::Dashboard"
+    Properties:
+      DashboardName: !Sub Chime_Voice_Connector_${VoiceConnectorId}
+      DashboardBody: !Sub '{"widgets":[{"type":"text","x":0,"y":0,"width":20,"height":1,"properties":{"markdown":"## Call Quality for Voice Connector: **${VoiceConnectorId}** in **${Region}**"}}, {"type":"metric","x":0,"y":2,"width":10,"height":6,"properties":{"metrics":[["AWS/ChimeVoiceConnector","MOSBetweenVcAndRemote","VoiceConnectorId","${VoiceConnectorId}"], [".","MOSBetweenVcAndCustomer", ".", "."]], "period":60,"stat":"Average","region":"${Region}","title":"Mean Opinion Score (MOS)", "yAxis": {"left": {"min": 1, "max": 5}}}}, {"type":"metric","x":10,"y":2,"width":10,"height":6,"properties":{"metrics":[["AWS/ChimeVoiceConnector","VcToCustomerJitter","VoiceConnectorId","${VoiceConnectorId}"], [".","CustomerToVcJitter", ".", "."], [".","RemoteToVcJitter", ".", "."], [".","VcToRemoteJitter", ".", "."]], "period":60,"stat":"Average","region":"${Region}","title":"Jitter"}}, {"type":"metric","x":0,"y":7,"width":10,"height":6,"properties":{"metrics":[["AWS/ChimeVoiceConnector","CustomerToVcPacketsLost","VoiceConnectorId","${VoiceConnectorId}"], [".","VcToCustomerPacketsLost", ".", "."], [".","RemoteToVcPacketsLost", ".", "."], [".","VcToRemotePacketsLost", ".", "."]], "period":60,"stat":"Average","region":"${Region}","title":"Packet Loss"}},  {"type":"metric","x":10,"y":7,"width":10,"height":6,"properties":{"metrics":[["AWS/ChimeVoiceConnector","RTTBetweenVcAndCustomer","VoiceConnectorId","${VoiceConnectorId}"], [".","RTTBetweenVcAndRemote", ".", "."]], "period":60,"stat":"Average","region":"${Region}","title":"Round Trip Time (RTT)"}}, {"type":"text","x":0,"y":14,"width":20,"height":1,"properties":{"markdown":"## Call Statistics for Voice Connector: **${VoiceConnectorId}** in **${Region}**"}}, {"type":"metric","x":0,"y":15,"width":12,"height":6,"properties":{"metrics":[["AWS/ChimeVoiceConnector","Sip1xxCodes","VoiceConnectorId","${VoiceConnectorId}"], [".","Sip2xxCodes", ".", "."], [".","Sip3xxCodes", ".", "."], [".","Sip4xxCodes", ".", "."],[".","Sip5xxCodes", ".", "."], [".","Sip6xxCodes", ".", "."]], "period":1200,"stat":"Sum","region":"${Region}","title":"SIP Response Codes"}}, {"type":"metric","x":12,"y":15,"width":4,"height":4,"properties":{"metrics":[["AWS/ChimeVoiceConnector","InboundCallsActive","VoiceConnectorId","${VoiceConnectorId}"]],"period":60,"stat":"Sum","region":"${Region}","title":"Active Inbound Calls", "view":"singleValue"}}, {"type":"metric","x":16,"y":15,"width":4,"height":4,"properties":{"metrics":[["AWS/ChimeVoiceConnector","OutboundCallsActive","VoiceConnectorId","${VoiceConnectorId}"]],"period":60,"stat":"Sum","region":"${Region}","title":"Active Outbound Calls","view":"singleValue"}}, {"type":"text","x":12,"y":19,"width":8,"height":2,"properties":{"markdown":"## **For more information on Voice Connector metrics, click [HERE.](https://docs.aws.amazon.com/chime/latest/ag/monitoring-cloudwatch.html)**"}}, {"type":"metric","x":0,"y":21,"width":10,"height":6,"properties":{"metrics":[["AWS/ChimeVoiceConnector","InboundCallAttempts","VoiceConnectorId","${VoiceConnectorId}"], [".", "InboundCallsAnswered", ".", "."], [".", "InboundCallFailures", ".", "."]],"period":60,"stat":"Average","region":"${Region}","title":"Inbound Calling"}}, {"type":"metric","x":10,"y":21,"width":10,"height":6,"properties":{"metrics":[["AWS/ChimeVoiceConnector","OutboundCallAttempts","VoiceConnectorId","${VoiceConnectorId}"], [".", "OutboundCallsAnswered", ".", "."], [".", "OutboundCallFailures", ".", "."]],"period":60,"stat":"Average","region":"${Region}","title":"Outbound Calling"}}]}'
+      
+      
+      
