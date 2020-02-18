@@ -1,10 +1,10 @@
-## Amazon Chime Tools
+### Amazon Chime Tools
 
-# About
+## About
 
 This repository contains a collection of sample scripts and templates developed for Amazon Chime customers.
 
-# Tools
+## Tools
 
 - [**CloudWatch Dashboard for Amazon Chime Voice Connector**](dashboard) - This folder includes a CloudFormation template that creates a dashboard of Amazon Chime Voice Connector metrics. A script is also included that will create a dashboard for each of your account's configured voice connectors.
 
