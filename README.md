@@ -6,7 +6,7 @@ This repository contains a collection of sample scripts and templates developed 
 
 ## Tools
 
-- [**CloudWatch Dashboard for Amazon Chime Voice Connector**](dashboard) - This folder includes a CloudFormation template that creates a dashboard of Amazon Chime Voice Connector metrics. A script is also included that will create a dashboard for each of your account's configured voice connectors.
+- [**CloudWatch Dashboard for Amazon Voice Connector**](dashboard) - This folder includes a CloudFormation template that creates a dashboard of Amazon Voice Connector metrics. A script is also included that will create a dashboard for each of your account's configured voice connectors.
 
 ## License
 
